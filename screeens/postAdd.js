@@ -1,8 +1,9 @@
-import { TextInput, TouchableOpacity, View, Text, ScrollView, FlatList, Image } from "react-native";
-import { styles } from "../components/styles";
+import { TextInput, TouchableOpacity, View, Text, ScrollView, Image } from "react-native";
+import { appColor, styles } from "../components/styles";
 import { useState } from "react";
 import CheckBox from "../components/checkBox";
 import * as ImagePicker from 'expo-image-picker';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 export default function CreateAdd() {
@@ -17,25 +18,27 @@ export default function CreateAdd() {
     const [Deposit, setDeposit] = useState(false)
     const [Upfront, setUpfront] = useState(false)
     const [images, setImages] = useState([]);
+    const [image, setImage] = useState(null);
+
     const pickImages = async () => {
-        // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             quality: 1,
-            // allowsMultipleSelection: true
+            allowsEditing: true,
+            aspect: [1, 1]
         });
 
         console.log(result);
         let image = images;
+        image.push({
+            id: images.length,
+            uri: result.assets[0].uri
+        })
         if (!result.canceled) {
-            
-            image.push({
-                id: images.length,
-                uri: result.assets[0].uri
-            })
-           
+            setImage(result.assets[0].uri);
+            setImages(image)
         }
-        setImages(image)
+
         console.log(images, result);
 
 
@@ -44,39 +47,51 @@ export default function CreateAdd() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'tomato', borderBottomRightRadius: 30, borderBottomLeftRadius: 30 }}>
-                    <View style={{marginTop:30}} />
-                    <TextInput placeholder="Region" onChangeText={setRegion} style={styles.textinput} />
-                    <TextInput placeholder="District" onChangeText={setDistrict} style={styles.textinput} />
-                    <TextInput placeholder="Home Type" onChangeText={setHomeType} style={styles.textinput} />
-                    <TextInput placeholder="No. of rooms" onChangeText={setNoRooms} style={styles.textinput} keyboardType='numeric' />
-                    <TextInput placeholder="No. of Kitchens" onChangeText={setNoKitchens} style={styles.textinput} keyboardType='numeric' />
-                    <TextInput placeholder="No. of toilets" onChangeText={setNoToilets} style={styles.textinput} keyboardType='numeric' />
-                    <TextInput placeholder="Monthly price" onChangeText={setMonthlyRent} style={styles.textinput} keyboardType='numeric' />
+                <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: appColor, borderBottomRightRadius: 30, borderBottomLeftRadius: 30 }}>
+                    <View style={{ marginTop: 30 }} />
+                    <TextInput placeholder="Region*" onChangeText={setRegion} style={styles.textinput} />
+                    <TextInput placeholder="District*" onChangeText={setDistrict} style={styles.textinput} />
+                    <TextInput placeholder="Home Type*" onChangeText={setHomeType} style={styles.textinput} />
+                    <TextInput placeholder="No. of rooms*" onChangeText={setNoRooms} style={styles.textinput} keyboardType='numeric' />
+                    <TextInput placeholder="No. of Kitchens*" onChangeText={setNoKitchens} style={styles.textinput} keyboardType='numeric' />
+                    <TextInput placeholder="No. of toilets*" onChangeText={setNoToilets} style={styles.textinput} keyboardType='numeric' />
+                    <TextInput placeholder="Monthly price*" onChangeText={setMonthlyRent} style={styles.textinput} keyboardType='numeric' />
                     <CheckBox color={Balcony} onPress={() => setBalcony(!Balcony)} title='Does it has Balcony?' />
                     <CheckBox color={Deposit} onPress={() => setDeposit(!Deposit)} title='Is there a deposit?' />
-                    {Deposit && <TextInput placeholder="Deposit amounte" onChangeText={setMonthlyRent} style={styles.textinput} keyboardType='numeric' />}
+                    {Deposit && <TextInput placeholder="Deposit amounte*" onChangeText={setMonthlyRent} style={styles.textinput} keyboardType='numeric' />}
                     <CheckBox color={Upfront} onPress={() => setUpfront(!Upfront)} title='Monthly Upfront?' />
-                    <TextInput placeholder="Description" onChangeText={setMonthlyRent} style={[styles.textinput,{alignSelf:'center',height:60}]} multiline={true} />
+                    <TextInput placeholder="Description*" onChangeText={setMonthlyRent} style={[styles.textinput, { alignSelf: 'center', height: 60 }]} multiline={true} />
+                    <View style={{ marginBottom: 30 }} />
                 </View>
-                
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <ScrollView horizontal={true}>
+
+                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+                    <ScrollView horizontal={true} style={{ margin: 8 }}>
                         {images.map(imageObj => (
-                            <Image
-                                key={imageObj.id}
-                                source={{ uri: imageObj.uri }}
-                                style={{ width: 200, height: 220, marginHorizontal: 4 }}
-                                resizeMode='contain'
-                            />
+                            <View key={imageObj.id} style={{ position: 'relative' }}>
+                                <Image
+                                    source={{ uri: imageObj.uri }}
+                                    style={{ width: 200, height: 220, marginHorizontal: 4 }}
+                                    resizeMode='contain'
+                                />
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        const newImages = images.filter(img => img.id !== imageObj.id);
+                                        setImages(newImages);
+                                    }}
+                                    style={{ position: 'absolute', top: 20, right: 10,  padding: 5 ,backgroundColor:'#D4D4D4',borderRadius:5}}
+                                >
+                                   <FontAwesome name="remove" size={20} color="black" />
+                                </TouchableOpacity>
+                            </View>
+
                         ))}
                     </ScrollView>
-                    <TouchableOpacity style={[styles.button, { width: '40%', height: 50 }]} onPress={() => pickImages()}>
-                        <Text>Add images</Text>
-                    </TouchableOpacity>
+                    {images.length < 3 && <TouchableOpacity style={[styles.button, { width: '40%', height: 50 }]} onPress={() => pickImages()}>
+                        <Text>Add images*</Text>
+                    </TouchableOpacity>}
 
 
-                    <TouchableOpacity style={[styles.button, { width: '40%', height: 50 }]}>
+                    <TouchableOpacity style={[styles.button, { width: '80%', height: 50 }]}>
                         <Text>Post</Text>
                     </TouchableOpacity>
                 </View>

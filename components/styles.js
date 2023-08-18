@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const appColor = '#fff'
+export const appColor = '#9F2B68'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
         padding: 10,
         margin: 4,
         width: '47%',
+        borderRadius:5
 
     },
     sort:{

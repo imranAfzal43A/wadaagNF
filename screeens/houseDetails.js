@@ -12,7 +12,7 @@ export default function HouseDetails() {
             <View style={{backgroundColor:appColor}}>
             <Gallery images={route.params.details.images} />
             </View>
-            <View style={{backgroundColor:appColor,width:'100%',alignSelf:'center',borderBottomLeftRadius:30,borderBottomRightRadius:30,height:200,padding:10}}>
+            <View style={{backgroundColor:'#fff',borderColor:appColor,borderWidth:4,width:'100%',alignSelf:'center',borderBottomLeftRadius:30,borderBottomRightRadius:30,height:200,padding:10}}>
             <Text>Description :{route.params.details.description}</Text>
             <Text>Rooms :{route.params.details.rooms}</Text>
             <Text>Price :{route.params.details.price}</Text>

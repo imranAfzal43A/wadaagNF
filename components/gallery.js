@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: width / 1.2,
-    height: height / 1.5,
+    height: height / 1.8,
     marginHorizontal: scale * 5,
     borderColor: "black",
     borderWidth: scale * 1.1,

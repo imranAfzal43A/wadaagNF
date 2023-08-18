@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const appColor = '#9F2B68'
+export const appColor = '#7e287e'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
     },
     checkBox: {
         flexDirection: 'row',
-        // justifyContent:'space-evenly',
         width: '100%',
         marginVertical: 4
     },
@@ -40,7 +39,8 @@ export const styles = StyleSheet.create({
         padding: 10,
         margin: 4,
         width: '47%',
-        borderRadius:5
+        borderRadius:5,
+        backgroundColor:'#fff'
 
     },
     sort:{

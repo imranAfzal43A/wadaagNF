@@ -1,6 +1,7 @@
-import { StyleSheet } from "react-native";
-
+import { Dimensions, StyleSheet } from "react-native";
+const width=Dimensions.get('window').width
 export const appColor = '#7e287e'
+export const fontColor='#fff'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -11,7 +12,7 @@ export const styles = StyleSheet.create({
         height: 40,
         borderRadius: 5,
         marginVertical: 4,
-        backgroundColor: '#D4D4D4',
+        //backgroundColor: '#D4D4D4',
         paddingLeft: 10
     },
     checkBox: {
@@ -20,7 +21,7 @@ export const styles = StyleSheet.create({
         marginVertical: 4
     },
     button: {
-        backgroundColor: '#D4D4D4',
+        backgroundColor: appColor,
         borderRadius: 5,
         alignSelf: 'center',
         justifyContent: 'center',
@@ -29,22 +30,39 @@ export const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-         
+
         marginBottom: 10,
     },
-    
+
     houseContainer: {
-        borderWidth: 1,
+
         borderColor: 'gray',
-        padding: 10,
-        margin: 4,
-        width: '47%',
-        borderRadius:5,
-        backgroundColor:'#fff'
+        margin: 10,
+        borderRadius: 5,
+        backgroundColor: '#fff'
 
     },
-    sort:{
-        margin:6,
-        backgroundColor:'#D4D4D4',justifyContent:'center',alignItems:'center',padding:10,width:100,borderRadius:5
-    }
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      },
+      modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+      },
+      typeButton: {
+        backgroundColor: 'lightgray',
+        padding: 10,
+        marginVertical: 5,
+        borderRadius: 5,
+      },
+      sort: {
+        margin: 6,
+        backgroundColor: '#D4D4D4', justifyContent: 'center', alignItems: 'center', padding: 10, width: 100, borderRadius: 5
+    },
+    search: { width: '100%', backgroundColor: appColor, width: width / 1.1, alignSelf: 'center', borderRadius: 10 }
 })

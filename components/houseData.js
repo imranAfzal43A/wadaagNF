@@ -144,3 +144,41 @@ export const Data = [
         "images": [img1, img2, img3]
     }
 ];
+
+export const images = [{
+    "id": "20",
+    "rooms": 4,
+    "price": 1650,
+    rating: '4.8',
+    'address': 'Random adress street',
+    contact:'123456789',
+    "images": [img1, img2, img3],
+    source: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aG91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60'
+}, {
+    "id": "17",
+    "rooms": 5,
+    "price": 2000,
+    'address': 'Random adress street',
+    rating: '4.4',
+    contact:'123456789',
+    "images": [img1, img2, img3],
+    source: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60'
+}, {
+    "id": "18",
+    "rooms": 2,
+    rating: '4.6',
+    'address': 'Random adress street',
+    "price": 1220,
+    contact:'123456789',
+    "images": [img1, img2, img3],
+    source: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60'
+}, {
+    contact:'123456789',
+    "id": "19",
+    'address': 'Random adress street',
+    "rooms": 1,
+    "price": 160,
+    rating: '4.7',
+    "images": [img1, img2, img3],
+    source: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60'
+}]

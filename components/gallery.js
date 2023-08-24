@@ -71,17 +71,17 @@ const { width, height, scale } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+   // alignItems: "center",
+   // justifyContent: "center",
   },
   image: {
-    width: width / 1.2,
-    height: height / 1.8,
-    marginHorizontal: scale * 5,
-    borderColor: "black",
-    borderWidth: scale * 1.1,
-    borderRadius: scale * 10,
-    margin: scale * 6,
+    width: width,
+    height: height / 3,
+    //marginHorizontal: scale * 5,
+   // borderColor: "black",
+    //borderWidth: scale * 1.1,
+   // borderRadius: scale * 10,
+   // margin: scale * 6,
     alignSelf: "center",
   },
   closeButton: {

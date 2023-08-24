@@ -26,8 +26,8 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Create Add" component={CreateAdd}  />
-        <Stack.Screen name="Search" component={SearchHouse} />
-        <Stack.Screen name="House Details" component={HouseDetails} />
+        <Stack.Screen name="Search" component={SearchHouse} options={{headerShown:false}} />
+        <Stack.Screen name="House Details" component={HouseDetails} options={{headerShown:false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CreateAdd from './screeens/postAdd';
 import SearchHouse from './screeens/searchHouse';
 import HouseDetails from './screeens/houseDetails';
+import Listings from './screeens/listings';
 
 function HomeScreen() {
   const navigation=useNavigation()
@@ -25,9 +26,10 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Create Add" component={CreateAdd}  />
+        <Stack.Screen name="Create Add" component={CreateAdd} options={{headerShown:false}}  />
         <Stack.Screen name="Search" component={SearchHouse} options={{headerShown:false}} />
         <Stack.Screen name="House Details" component={HouseDetails} options={{headerShown:false}} />
+        <Stack.Screen name="Listings" component={Listings} options={{headerShown:false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

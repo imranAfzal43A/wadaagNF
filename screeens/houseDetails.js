@@ -12,14 +12,11 @@ export default function HouseDetails() {
         "January", "February", "March", "April",
         "May", "June", "July", "August",
         "September", "October", "November", "December"
-      ];
-      
-      const currentDate = new Date();
-      const currentMonth = months[currentDate.getMonth()];
+    ];
+    const currentDate = new Date();
+    const currentMonth = months[currentDate.getMonth()];
     const dialNumber = () => {
-        const phoneNumber = '123-456-7890'; // Replace with the desired phone number
         const url = `tel:${route.params.data.contact}`;
-
         Linking.openURL(url)
             .catch((error) => console.error('Error dialing number:', error));
     };
@@ -33,7 +30,7 @@ export default function HouseDetails() {
                 </View>
                 <View style={{ margin: 10 }}>
                     <Text style={{ fontSize: 18, marginLeft: 10, fontWeight: 'bold' }}>{route.params.data.address}</Text>
-                    <Text style={{ fontSize: 14, marginLeft: 10,}}>Rooms : {route.params.data.rooms}</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 10, }}>Rooms : {route.params.data.rooms}</Text>
                 </View>
                 <View style={{ margin: 10, padding: 4, flexDirection: 'row', borderWidth: 0.1, borderRadius: 2, borderColor: appColor }}>
                     <MaterialCommunityIcons name="calendar-clock" size={40} color={appColor} style={{ alignSelf: 'center' }} />
@@ -68,14 +65,16 @@ export default function HouseDetails() {
                     </View>
                 </View>
                 <Text style={{ fontSize: 20, margin: 10, fontWeight: 'bold' }}>Location</Text>
-                <View style={{justifyContent:'center',alignItems:'center',borderRadius:20,marginBottom:100,overflow:'hidden'}}>
-                <MapView style={{width:'90%',height:200}} />
+                <View style={{ justifyContent: 'center', alignItems: 'center', borderRadius: 20, marginBottom: 100, overflow: 'hidden' }}>
+                    <MapView style={{ width: '90%', height: 200 }} />
                 </View>
             </ScrollView>
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{ position: 'absolute', top: 30, left: 10, backgroundColor: '#fff', opacity: 0.8, padding: 4, borderRadius: 5 }}>
-                <AntDesign name="arrowleft" size={24} color={appColor} />
-            </TouchableOpacity>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', position: 'absolute', bottom: 0, width: '100%', right: 0, left: 0 }}>
+            <View style={{ position: 'absolute', top: 30, left: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: '#fff', opacity: 0.8, padding: 4, borderRadius: 1, borderWidth: 0.1, borderColor: appColor, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
+                    <AntDesign name="arrowleft" size={24} color={appColor} />
+                </TouchableOpacity>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', position: 'absolute', bottom: 0, width: '100%', right: 0, left: 0, backgroundColor: '#fff' }}>
                 <View style={{ width: '40%', justifyContent: 'center', marginLeft: 10 }}>
                     <Text style={{ fontSize: 10, marginLeft: 10 }}>Price</Text>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>{route.params.data.price}$/Mon</Text>

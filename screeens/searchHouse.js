@@ -1,6 +1,6 @@
 import { TextInput, TouchableOpacity, View, Text, FlatList, ScrollView, Image, Dimensions, Modal } from "react-native";
 import { appColor, fontColor, styles } from "../components/styles";
-import { Feather, EvilIcons, MaterialIcons, MaterialCommunityIcons, Entypo ,AntDesign} from '@expo/vector-icons';
+import { Feather, EvilIcons, MaterialIcons, MaterialCommunityIcons, Entypo, AntDesign } from '@expo/vector-icons';
 import { Data, images } from "../components/houseData";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -10,9 +10,9 @@ const height = Dimensions.get('window').height;
 export default function SearchHouse() {
 
     const navigation = useNavigation()
-    const [sortedHouses, setSortedHouses] = useState([...Data]);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedType, setSelectedType] = useState('Type');
+    const [query, setQuery] = useState('')
     const showModal = () => {
         setModalVisible(true);
     };
@@ -25,15 +25,7 @@ export default function SearchHouse() {
         setSelectedType(type);
         hideModal();
     };
-    const sortByPrice = () => {
-        const sortedByPrice = [...sortedHouses].sort((a, b) => a.price - b.price);
-        setSortedHouses(sortedByPrice);
-    };
 
-    const sortByRooms = () => {
-        const sortedByRooms = [...sortedHouses].sort((a, b) => a.rooms - b.rooms);
-        setSortedHouses(sortedByRooms);
-    };
     return (
         <View style={[styles.container, { backgroundColor: '#fff' }]}>
             <View style={{ marginTop: 40 }} />
@@ -41,7 +33,7 @@ export default function SearchHouse() {
 
                 <View style={{ flexDirection: 'row', borderBottomWidth: 1 }}>
                     <EvilIcons name="location" size={24} color={fontColor} style={{ alignSelf: 'center', marginLeft: 4 }} />
-                    <TextInput style={[styles.textinput, { width: '90%', alignSelf: "center" }]} placeholder="Search" placeholderTextColor={fontColor} />
+                    <TextInput style={[styles.textinput, { width: '90%', alignSelf: "center", color: '#fff' }]} cursorColor={'#fff'} placeholder="Search" placeholderTextColor={fontColor} onChangeText={(t) => setQuery(t)} />
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ flexDirection: 'row', borderRightWidth: 2 }}>
@@ -58,7 +50,7 @@ export default function SearchHouse() {
 
                 </View>
             </View>
-            <TouchableOpacity style={[styles.button, { width: '90%', height: 50, marginVertical: 10, backgroundColor: appColor }]} onPress={sortByPrice}>
+            <TouchableOpacity style={[styles.button, { width: '90%', height: 50, marginVertical: 10, backgroundColor: appColor }]} onPress={() => navigation.navigate('Listings', { query: query })}>
                 <Text style={{ color: fontColor }}>View Listing</Text>
             </TouchableOpacity>
 
@@ -74,15 +66,15 @@ export default function SearchHouse() {
 
                     renderItem={({ item }) => (
 
-                        <TouchableOpacity style={{ flex: 1, margin: 10, borderRadius: 2 }} onPress={()=>navigation.navigate("House Details",{data:item})}>
+                        <TouchableOpacity style={{ flex: 1, margin: 10, borderRadius: 2 }} onPress={() => navigation.navigate("House Details", { data: item })}>
                             <Image source={{ uri: item.source }} resizeMode='cover' resizeMethod='scale' style={{ width: '100%', height: '30%', borderWidth: 1, borderRadius: 10 }} />
-                            <View style={{ flexDirection: 'row',justifyContent:'space-between' }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ marginLeft: 10, marginTop: 10, fontWeight: 'bold' }}>{item.address}</Text>
-                                <Text style={{ marginTop: 10, fontWeight: 'bold',marginRight:10 }}>{item.rating} <AntDesign name="star" size={14} color={appColor} /></Text>
-                                
+                                <Text style={{ marginTop: 10, fontWeight: 'bold', marginRight: 10 }}>{item.rating} <AntDesign name="star" size={14} color={appColor} /></Text>
+
                             </View>
-                            <Text style={{ width: 100, marginLeft: 10, fontWeight: 'bold' }}>{item.rooms} rooms</Text>
-                            <Text style={{ width: 100, marginLeft: 10, fontWeight: 'bold' }}>{item.price} $ / Mon </Text>      
+                            <Text style={{ width: 100, marginLeft: 10, fontWeight: 'bold',color:'#D4D4D4' }}>{item.rooms} rooms</Text>
+                            <Text style={{ width: 100, marginLeft: 10, fontWeight: 'bold' }}>{item.price} $ /<Text style={{color:'#D4D4D4'}}>Mon</Text></Text>
                         </TouchableOpacity>
                     )}
                 />
@@ -116,22 +108,6 @@ export default function SearchHouse() {
                     </View>
                 </View>
             </Modal>
-            {/* <FlatList
-                    data={sortedHouses}
-                    renderItem={({ item }) => (
-                        <View style={styles.houseContainer}>
-                            <TouchableOpacity onPress={() => navigation.navigate('House Details', { details: item })}>
-                                <Image source={{ uri: item.images[0] }} resizeMode='cover' style={{ width: '100%', height: width / 2, borderRadius: 10 }} />
-                                <Text>House ID: {item.id}</Text>
-                                <Text>Price: ${item.price}</Text>
-                                <Text>Rooms: {item.rooms}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}
-                    keyExtractor={item => item.id}
-                /> */}
-
-
         </View>
     )
 }

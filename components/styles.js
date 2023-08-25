@@ -10,10 +10,11 @@ export const styles = StyleSheet.create({
     textinput: {
         width: '90%',
         height: 40,
-        borderRadius: 5,
-        marginVertical: 4,
+        borderRadius: 2,
+        marginVertical: 8,
         //backgroundColor: '#D4D4D4',
-        paddingLeft: 10
+        paddingLeft: 10,
+        borderColor:appColor,borderWidth:0.1,alignSelf:'center'
     },
     checkBox: {
         flexDirection: 'row',

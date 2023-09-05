@@ -14,7 +14,7 @@ export default function HouseDetails() {
         "September", "October", "November", "December"
     ];
     const currentDate = new Date();
-    const currentMonth = months[currentDate.getMonth()];
+    const currentMonth = months[currentDate.getMonth()+1];
     const dialNumber = () => {
         const url = `tel:${route.params.data.contact}`;
         Linking.openURL(url)
@@ -35,7 +35,7 @@ export default function HouseDetails() {
                 <View style={{ margin: 10, padding: 4, flexDirection: 'row', borderWidth: 0.1, borderRadius: 2, borderColor: appColor }}>
                     <MaterialCommunityIcons name="calendar-clock" size={40} color={appColor} style={{ alignSelf: 'center' }} />
                     <View>
-                        <Text style={{ fontSize: 18, marginLeft: 10, fontWeight: 'bold' }}>Reserve Before {currentMonth} 1st!</Text>
+                        <Text style={{ fontSize: 16, marginLeft: 10, fontWeight: 'bold' }}>Reserve Before {currentMonth} 1st!</Text>
                         <Text style={{ fontSize: 16, marginLeft: 10 }}>Reserve to avail discount</Text>
                     </View>
                 </View>
@@ -70,7 +70,7 @@ export default function HouseDetails() {
                 </View>
             </ScrollView>
             <View style={{ position: 'absolute', top: 30, left: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: '#fff', opacity: 0.8, padding: 4, borderRadius: 1, borderWidth: 0.1, borderColor: appColor, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: '#fff', opacity: 0.8, padding: 4, borderRadius: 5,borderWidth: 1, borderColor: appColor, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
                     <AntDesign name="arrowleft" size={24} color={appColor} />
                 </TouchableOpacity>
             </View>

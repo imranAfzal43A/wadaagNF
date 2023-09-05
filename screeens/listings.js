@@ -38,10 +38,10 @@ export default function Listings() {
                 keyExtractor={item => item.id}
             />
             <View style={{ position: 'absolute', top: 30, left: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: '#fff', opacity: 0.8, padding: 4, borderRadius: 1, borderWidth: 0.1, borderColor: appColor, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: '#fff', opacity: 0.8, padding: 4, borderRadius: 5, borderWidth: 1, borderColor: appColor, width: 40, height: 40, justifyContent: 'center', alignItems: 'center',alignSelf:'center' }}>
                     <AntDesign name="arrowleft" size={24} color={appColor} />
                 </TouchableOpacity>
-                <TextInput style={[styles.textinput, { width: '100%', alignSelf: "center", fontSize: 20 }]} placeholder={'Search'} value={route.params.query} onChangeText={(t) => setQuery(t)} />
+                <TextInput style={[styles.textinput, { width: '80%', alignSelf: "center", fontSize: 20 ,marginLeft:2}]} placeholder={'Search'} value={route.params.query} onChangeText={(t) => setQuery(t)} />
             </View>
         </View>
     )

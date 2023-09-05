@@ -8,13 +8,13 @@ export const styles = StyleSheet.create({
 
     },
     textinput: {
-        width: '90%',
-        height: 40,
+        width: '80%',
+        height: 50,
         borderRadius: 2,
         marginVertical: 8,
-        //backgroundColor: '#D4D4D4',
+       // backgroundColor: '#D4D4D4',
         paddingLeft: 10,
-        borderColor:appColor,borderWidth:0.1,alignSelf:'center'
+        borderColor:appColor,alignSelf:'center'
     },
     checkBox: {
         flexDirection: 'row',
@@ -54,6 +54,7 @@ export const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 10,
         alignItems: 'center',
+        width:width/1.1
       },
       typeButton: {
         backgroundColor: 'lightgray',

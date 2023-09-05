@@ -1,9 +1,10 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { View, Text, ScrollView, TouchableOpacity, Linking } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Linking, Modal, FlatList } from "react-native";
 import Gallery from "../components/gallery";
 import { appColor, styles } from "../components/styles";
 import { MaterialCommunityIcons, AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import MapView from 'react-native-maps';
+import { useState } from "react";
 export default function HouseDetails() {
     const route = useRoute()
     const navigation = useNavigation()
@@ -14,7 +15,16 @@ export default function HouseDetails() {
         "September", "October", "November", "December"
     ];
     const currentDate = new Date();
-    const currentMonth = months[currentDate.getMonth()+1];
+    const currentMonth = months[currentDate.getMonth() + 1];
+    const [FacilitiesVisible, setFacilitiesVisible] = useState(false);
+    const [seeMore, setSeeMore] = useState(false)
+    const showFacilities = () => {
+        setFacilitiesVisible(true);
+    };
+
+    const hideFacilities = () => {
+        setFacilitiesVisible(false);
+    };
     const dialNumber = () => {
         const url = `tel:${route.params.data.contact}`;
         Linking.openURL(url)
@@ -32,6 +42,22 @@ export default function HouseDetails() {
                     <Text style={{ fontSize: 18, marginLeft: 10, fontWeight: 'bold' }}>{route.params.data.address}</Text>
                     <Text style={{ fontSize: 14, marginLeft: 10, }}>Rooms : {route.params.data.rooms}</Text>
                 </View>
+                <View style={{ flex: 1, marginLeft:20}}>
+                    {!seeMore && <TouchableOpacity onPress={() => setSeeMore(true)}><Text style={{ alignSelf: 'center' }} >See more</Text></TouchableOpacity>}
+                    {
+                        seeMore ? <>
+                            <Text>Region : ABC</Text>
+                            <Text>District : XYZ</Text>
+                            <Text>Kitchens : 2</Text>
+                            <Text>Toilets : 2</Text>
+                            <Text>Monthly Upfront : 1000$</Text>
+                            <Text>Balcony : No</Text>
+                            <Text>Deposit : 200$</Text>
+                            <TouchableOpacity onPress={() => setSeeMore(false)}><Text style={{ alignSelf: 'center' }} >See Less</Text></TouchableOpacity>
+                        </>
+                            : null
+                    }
+                </View>
                 <View style={{ margin: 10, padding: 4, flexDirection: 'row', borderWidth: 0.1, borderRadius: 2, borderColor: appColor }}>
                     <MaterialCommunityIcons name="calendar-clock" size={40} color={appColor} style={{ alignSelf: 'center' }} />
                     <View>
@@ -41,28 +67,33 @@ export default function HouseDetails() {
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginRight: 10, marginLeft: 4 }}>
                     <Text style={{ fontSize: 20, marginLeft: 10, fontWeight: 'bold' }}>Facilities</Text>
-                    <TouchableOpacity style={{ alignSelf: 'center' }}>
+                    <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => showFacilities()}>
                         <Text style={{ fontSize: 10, marginLeft: 10, fontWeight: 'bold', alignSelf: 'center' }}>See All</Text>
                     </TouchableOpacity>
 
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Ionicons name="ios-water-outline" size={40} color={appColor} />
-                        <Text>Water</Text>
-                    </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <MaterialCommunityIcons name="gas-cylinder" size={40} color={appColor} />
-                        <Text>Gas</Text>
-                    </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <MaterialIcons name="electrical-services" size={40} color={appColor} />
-                        <Text>Electricity</Text>
-                    </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Ionicons name="bus" size={40} color={appColor} />
-                        <Text>Transport</Text>
-                    </View>
+                    {
+                        route.params.data?.facilities.map((item) => {
+                            return <View style={{ justifyContent: 'center', alignItems: 'center', margin: 8 }}>
+
+                                {item.iconType === 'Ionicons' ? <Ionicons name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
+
+                                }} />
+                                    : item.iconType === 'MaterialCommunityIcons' ? <MaterialCommunityIcons name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
+
+                                    }} />
+                                        : item.iconType === 'MaterialIcons' ? <MaterialIcons
+                                            name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
+
+                                            }}
+                                        /> : null
+                                }
+                                <Text>{item.name}</Text>
+                            </View>
+                        })
+                    }
+
                 </View>
                 <Text style={{ fontSize: 20, margin: 10, fontWeight: 'bold' }}>Location</Text>
                 <View style={{ justifyContent: 'center', alignItems: 'center', borderRadius: 20, marginBottom: 100, overflow: 'hidden' }}>
@@ -70,7 +101,7 @@ export default function HouseDetails() {
                 </View>
             </ScrollView>
             <View style={{ position: 'absolute', top: 30, left: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: '#fff', opacity: 0.8, padding: 4, borderRadius: 5,borderWidth: 1, borderColor: appColor, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ backgroundColor: '#fff', opacity: 0.8, padding: 4, borderRadius: 5, borderWidth: 1, borderColor: appColor, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
                     <AntDesign name="arrowleft" size={24} color={appColor} />
                 </TouchableOpacity>
             </View>
@@ -83,6 +114,42 @@ export default function HouseDetails() {
                     <Text style={{ color: '#fff' }}>Book Now</Text>
                 </TouchableOpacity>
             </View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={FacilitiesVisible}
+                onRequestClose={hideFacilities}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <FlatList data={route.params.data.facilities} renderItem={({ item, index }) => {
+                            return (
+                                <View style={{ justifyContent: 'center', alignItems: 'center', margin: 8 }}>
+
+                                    {item.iconType === 'Ionicons' ? <Ionicons name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
+
+                                    }} />
+                                        : item.iconType === 'MaterialCommunityIcons' ? <MaterialCommunityIcons name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
+
+                                        }} />
+                                            : item.iconType === 'MaterialIcons' ? <MaterialIcons
+                                                name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
+
+                                                }}
+                                            /> : null
+                                    }
+                                    <Text>{item.name}</Text>
+                                </View>
+                            )
+                        }}
+                            numColumns={3}
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => hideFacilities()}>
+                        <Ionicons name="close-circle-outline" size={40} color="#fff" />
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </View>
     )
 }

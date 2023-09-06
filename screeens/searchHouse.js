@@ -67,14 +67,14 @@ export default function SearchHouse() {
                     renderItem={({ item }) => (
 
                         <TouchableOpacity style={{ flex: 1, margin: 10, borderRadius: 2 }} onPress={() => navigation.navigate("House Details", { data: item })}>
-                            <Image source={{ uri: item.source }} resizeMode='cover' resizeMethod='scale' style={{ width: '100%', height: '30%', borderWidth: 1, borderRadius: 10 }} />
+                            <Image source={{ uri: item.image[0] }} resizeMode='cover' resizeMethod='scale' style={{ width: '100%', height: '30%', borderWidth: 1, borderRadius: 10 }} />
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ marginLeft: 10, marginTop: 10, fontWeight: 'bold' }}>{item.address}</Text>
+                                <Text style={{ marginLeft: 10, marginTop: 10, fontWeight: 'bold' }}>{item.region},{item.district}</Text>
                                 <Text style={{ marginTop: 10, fontWeight: 'bold', marginRight: 10 }}>{item.rating} <AntDesign name="star" size={14} color={appColor} /></Text>
 
                             </View>
                             <Text style={{ width: 100, marginLeft: 10, fontWeight: 'bold',color:'#D4D4D4' }}>{item.rooms} rooms</Text>
-                            <Text style={{ width: 100, marginLeft: 10, fontWeight: 'bold' }}>{item.price} $ /<Text style={{color:'#D4D4D4'}}>Mon</Text></Text>
+                            <Text style={{ width: 100, marginLeft: 10, fontWeight: 'bold' }}>{item.monthlyRent} $ /<Text style={{color:'#D4D4D4'}}>Mon</Text></Text>
                         </TouchableOpacity>
                     )}
                 />

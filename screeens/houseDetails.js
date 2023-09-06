@@ -35,24 +35,25 @@ export default function HouseDetails() {
 
 
             <ScrollView>
-                <Gallery images={route.params.data.images} />
+                <Gallery images={route.params.data?.image} />
                 <View style={{ backgroundColor: '#fff' }}>
                 </View>
                 <View style={{ margin: 10 }}>
-                    <Text style={{ fontSize: 18, marginLeft: 10, fontWeight: 'bold' }}>{route.params.data.address}</Text>
+                    <Text style={{ fontSize: 18, marginLeft: 10, fontWeight: 'bold' }}>{route.params.data.region}</Text>
                     <Text style={{ fontSize: 14, marginLeft: 10, }}>Rooms : {route.params.data.rooms}</Text>
                 </View>
-                <View style={{ flex: 1, marginLeft:20}}>
+                <View style={{ flex: 1, marginLeft: 16 }}>
                     {!seeMore && <TouchableOpacity onPress={() => setSeeMore(true)}><Text style={{ alignSelf: 'center' }} >See more</Text></TouchableOpacity>}
                     {
                         seeMore ? <>
-                            <Text>Region : ABC</Text>
-                            <Text>District : XYZ</Text>
-                            <Text>Kitchens : 2</Text>
-                            <Text>Toilets : 2</Text>
-                            <Text>Monthly Upfront : 1000$</Text>
-                            <Text>Balcony : No</Text>
-                            <Text>Deposit : 200$</Text>
+                            <Text style={{ margin: 6 }}>Region : {route.params.data.region}</Text>
+                            <Text style={{ margin: 6 }}>District : {route.params.data.district}</Text>
+                            <Text style={{ margin: 6 }}>Kitchens : {route.params.data.kitchen}</Text>
+                            <Text style={{ margin: 6 }}>Toilets : {route.params.data.toilets}</Text>
+                            <Text style={{ margin: 6 }}>Monthly Upfront : {route.params.data.monthlyUpfront}$</Text>
+                            <Text style={{ margin: 6 }}>Balcony : {route.params.data.balcony}</Text>
+                            <Text style={{ margin: 6 }}>Deposit : {route.params.data.deposit}$</Text>
+                            <Text style={{ margin: 6, marginRight: 6 }}>{route.params.data.description}</Text>
                             <TouchableOpacity onPress={() => setSeeMore(false)}><Text style={{ alignSelf: 'center' }} >See Less</Text></TouchableOpacity>
                         </>
                             : null
@@ -74,8 +75,8 @@ export default function HouseDetails() {
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
                     {
-                        route.params.data?.facilities.map((item) => {
-                            return <View style={{ justifyContent: 'center', alignItems: 'center', margin: 8 }}>
+                        route.params.data?.facilities?.map((item) => {
+                            return item.selected ? <View style={{ justifyContent: 'center', alignItems: 'center', margin: 8 }}>
 
                                 {item.iconType === 'Ionicons' ? <Ionicons name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
 
@@ -90,7 +91,7 @@ export default function HouseDetails() {
                                         /> : null
                                 }
                                 <Text>{item.name}</Text>
-                            </View>
+                            </View> : null
                         })
                     }
 
@@ -108,7 +109,7 @@ export default function HouseDetails() {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', position: 'absolute', bottom: 0, width: '100%', right: 0, left: 0, backgroundColor: '#fff' }}>
                 <View style={{ width: '40%', justifyContent: 'center', marginLeft: 10 }}>
                     <Text style={{ fontSize: 10, marginLeft: 10 }}>Price</Text>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>{route.params.data.price}$/Mon</Text>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>{route.params.data.monthlyRent}$/Mon</Text>
                 </View>
                 <TouchableOpacity style={[styles.button, { width: '40%', height: 50, marginTop: 20, marginBottom: 20, marginRight: 20 }]} onPress={() => dialNumber()}  >
                     <Text style={{ color: '#fff' }}>Book Now</Text>
@@ -123,26 +124,19 @@ export default function HouseDetails() {
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
                         <FlatList data={route.params.data.facilities} renderItem={({ item, index }) => {
-                            return (
+                            return item.selected ? (
                                 <View style={{ justifyContent: 'center', alignItems: 'center', margin: 8 }}>
 
-                                    {item.iconType === 'Ionicons' ? <Ionicons name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
-
-                                    }} />
-                                        : item.iconType === 'MaterialCommunityIcons' ? <MaterialCommunityIcons name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
-
-                                        }} />
+                                    {item.iconType === 'Ionicons' ? <Ionicons name={item.icon} size={40} color={appColor} />
+                                        : item.iconType === 'MaterialCommunityIcons' ? <MaterialCommunityIcons name={item.icon} size={40} color={appColor} />
                                             : item.iconType === 'MaterialIcons' ? <MaterialIcons
-                                                name={item.icon} size={40} color={item.selected ? appColor : 'black'} onPress={() => {
-
-                                                }}
-                                            /> : null
+                                                name={item.icon} size={40} color={appColor} /> : null
                                     }
                                     <Text>{item.name}</Text>
                                 </View>
-                            )
+                            ) : null
                         }}
-                            numColumns={3}
+                            numColumns={4}
                         />
                     </View>
                     <TouchableOpacity onPress={() => hideFacilities()}>

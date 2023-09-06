@@ -100,7 +100,7 @@ export default function CreateAdd() {
     };
     const handlePostAdd = async () => {
         try {
-            const add = {
+            const addPost = {
                 region: Region,
                 district: District,
                 type: selectedType,
@@ -113,7 +113,8 @@ export default function CreateAdd() {
                 deposit: Deposit,
                 balcony: Balcony,
                 image: images,
-                facilities: FacilitiesList
+                facilities: FacilitiesList,
+                contact: '123456789'
 
 
             }
